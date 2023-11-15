@@ -4,16 +4,35 @@ const Post = require("../models/Post");
 
 //Routes
 router.get("", async (req, res) => {
-  const locals = {
-    title: "NodeJS Blog",
-    description: "Simple blog created with NodeJS, Express and MongoDB",
-  };
-
   try {
-    const data = await Post.find();
-    res.render("index", { locals, data });
+    const locals = {
+      title: "NodeJs Blog",
+      description: "Simple Blog created with NodeJs, Express & MongoDb.",
+    };
+
+    let perPage = 10;
+    let page = req.query.page || 1;
+
+    const data = await Post.aggregate([{ $sort: { createdAt: -1 } }])
+      .skip(perPage * page - perPage)
+      .limit(perPage)
+      .exec();
+
+    // Count is deprecated - please use countDocuments
+    const count = await Post.count();
+    //const count = await countDocuments({});
+    const nextPage = parseInt(page) + 1;
+    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+
+    res.render("index", {
+      locals,
+      data,
+      current: page,
+      nextPage: hasNextPage ? nextPage : null,
+      currentRoute: "/",
+    });
   } catch (error) {
-    console.log("error");
+    console.log(error);
   }
 });
 
