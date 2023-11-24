@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 6500;
 //Connect Database
 connectDB();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(express.static("public"));
 
 // Templeting engine
