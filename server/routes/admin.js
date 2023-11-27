@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
 
+const adminLayout = "../views/layouts/admin";
+
 /**
  * GET /
  * Admin - Login Page
