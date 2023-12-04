@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const adminLayout = "../views/layouts/admin";
+const jwtSecret = process.env.JWT_SECRET;
 
 /**
  * GET /
@@ -50,6 +51,15 @@ router.post("/admin", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+/**
+ * GET /
+ * Admin Dashboard
+ */
+
+router.post("/dashboard", async (req, res) => {
+  res.render("admin/dashboard");
 });
 
 /**
