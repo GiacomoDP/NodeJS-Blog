@@ -58,7 +58,7 @@ router.post("/admin", async (req, res) => {
  * Admin Dashboard
  */
 
-router.post("/dashboard", async (req, res) => {
+router.get("/dashboard", async (req, res) => {
   res.render("admin/dashboard");
 });
 
