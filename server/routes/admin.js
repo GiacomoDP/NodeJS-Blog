@@ -141,6 +141,29 @@ router.post("/add-post", authMiddleware, async (req, res) => {
 });
 
 /**
+ * GET /
+ * Admin - Create New Post
+ */
+router.get("/edit-post/:id", authMiddleware, async (req, res) => {
+  try {
+    const locals = {
+      title: "Edit Post",
+      description: "Free NodeJs User Management System",
+    };
+
+    const data = await Post.findOne({ _id: req.params.id });
+
+    res.render("admin/edit-post", {
+      locals,
+      data,
+      layout: adminLayout,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+/**
  * PUT /
  * Admin - Create New Post
  */
