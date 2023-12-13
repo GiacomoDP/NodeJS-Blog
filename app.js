@@ -16,6 +16,7 @@ const PORT = process.env.PORT || 6500;
 //Connect Database
 connectDB();
 
+const { isActiveRoute } = require("./server/helpers/routeHelpers");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -39,6 +40,8 @@ app.use(express.static("public"));
 app.use(expressLayout);
 app.set("layout", "./layouts/main");
 app.set("view engine", "ejs");
+
+app.locals.isActiveRoute = isActiveRoute;
 
 app.use("/", require("./server/routes/main"));
 app.use("/", require("./server/routes/admin"));
