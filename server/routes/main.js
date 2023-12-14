@@ -55,6 +55,7 @@ router.get("/post/:id", async (req, res) => {
     res.render("post", {
       locals,
       data,
+      currentRoute: `/post/${slug}`,
     });
   } catch (error) {
     console.log(error);
